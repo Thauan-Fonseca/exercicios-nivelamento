@@ -31,7 +31,7 @@ class Alunos {
     
 }
 
-const aluno = new Alunos('0987', 'jeq', 4,4,10)
+const aluno = new Alunos('0987', 'jeq', 10,4,10)
 console.log(aluno)
 console.log(aluno.media())
 console.log(aluno.final())

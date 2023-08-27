@@ -42,23 +42,21 @@ class Voo {
     proximaLivre(){
         let variavel = true
         while(variavel){
-            for(let i = 1; i <= this.vagasOcupadas.length ; i++){
-                if(this.vagasOcupadas.length === 100){
-                    variavel = false
-                    break
-                }
+            for(let i = 1; i <= this.vagasOcupadas.length +1 ; i++){
                 if(!this.vagasOcupadas.includes(i)){
                     variavel = false
-                    return i
-                } 
-        }   }
+                    return i 
+                }
+           }
+        }
     }
 
     ocupa(item){
         if(this.vagasOcupadas.includes(item)){
             return `A vaga ${item} já foi ocupada`
         } else {
-            return `Vaga ${item} pode ser ocupada por você`
+            this.vagasOcupadas.push(item)
+            return `Você está ocupando essa cadeira agora`
         }
     }
     
@@ -71,20 +69,55 @@ class Voo {
     }
 }
 
-const novoVoo = new Voo(100,11,10,2023, 20)
-console.log(novoVoo)
+const vooAtual = new Voo(10, 23,4,2023,4)
+console.log(vooAtual)
+vooAtual.adicionaAssento(1)
+vooAtual.adicionaAssento(12)
+vooAtual.adicionaAssento(2)
+vooAtual.adicionaAssento(3)
+vooAtual.adicionaAssento(5)
+console.log(vooAtual.ocupa(10))
+console.log(vooAtual.verifica(3))
+console.log(vooAtual.proximaLivre())
+console.log(vooAtual.assentosOcupados())
 
-novoVoo.adicionaAssento(1)
+
 
 class VooFumantes extends Voo {
 
-    tamanhoVoo
+    assentosTotais = []
+    assentosNaoFumantes = []
     assentosFumantes = []
 
-    constructor(numeroDoVoo, dia, mes, ano, hora, tamanhoVoo, assentosFumantes){
+    constructor(numeroDoVoo, dia, mes, ano, hora, numeroVagas, assentosFumantes){
         super(numeroDoVoo, dia, mes, ano, hora)
+        this.numeroVagas = numeroVagas
+        this.assentosFumantes = assentosFumantes
+        this.assentosNaoFumantes = this.numeroVagas - this.assentosFumantes
     }
-    
+
+    maxVagas(){
+        return this.numeroVagas
+    }
+
+    cadeirasFumantes(){
+        return (console.log(`Número de cadeiras para fumantes: ${this.assentosFumantes}`),
+        console.log(`Número de cadeiras para não fumantes: ${this.assentosNaoFumantes}`))
+    }
+
+    tipo(cadeira){
+        if(cadeira > this.assentosNaoFumantes){
+            return 'F'
+        } else {
+            return 'N'
+        }
+    }
 }
 
+const novoVoo = new VooFumantes(10, 10,10,2010, 8, 120, 20)
+
+console.log(novoVoo)
+console.log(novoVoo.maxVagas())
+console.log(novoVoo.cadeirasFumantes())
+console.log(novoVoo.tipo(100))
 
